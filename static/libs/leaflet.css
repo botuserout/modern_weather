@@ -1,0 +1,11 @@
+/* Minimal custom Leaflet map CSS - for custom styles only */
+
+#map {
+  height: 400px;
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  margin: 16px 0;
+}
+
+/* Add further customizations below as needed */

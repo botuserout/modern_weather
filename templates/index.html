@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modern Weather Dashboard</title>
+    <script>
+      // Apply theme immediately to prevent flash
+      (function() {
+        const theme = localStorage.getItem('theme') || 'light';
+        document.addEventListener('DOMContentLoaded', function() {
+          document.body.classList.add('theme-' + theme);
+        });
+      })();
+    </script>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="search-bar">
+        <input id="cityInput" type="text" placeholder="Search for location" />
+        <button onclick="fetchWeather()">Search</button>
+      </div>
+      <div class="personalization-bar">
+        <div class="greeting-section">
+          <div class="greeting" id="greetingMsg">Hello!</div>
+          <div class="clock" id="liveClock">
+            <span class="clock-time" id="clockTime">--:--:--</span>
+            <span class="clock-date" id="clockDate">-- --, ----</span>
+          </div>
+        </div>
+        <div class="theme-toggle">
+          <button id="theme-light" class="theme-btn active" title="Light Theme">☀️</button>
+          <button id="theme-dark" class="theme-btn" title="Dark Theme">🌙</button>
+          <button id="theme-auto" class="theme-btn" title="Auto (System)">🌓</button>
+        </div>
+        <div class="unit-toggle">
+          <span>Units:</span>
+          <button id="toggle-temp" class="unit-btn active">°C</button>
+          <button id="toggle-temp-f" class="unit-btn">°F</button>
+          <span>|</span>
+          <button id="toggle-wind" class="unit-btn active">km/h</button>
+          <button id="toggle-wind-mph" class="unit-btn">mph</button>
+          <span>|</span>
+          <button id="toggle-pressure" class="unit-btn active">hPa</button>
+          <button id="toggle-pressure-inhg" class="unit-btn">inHg</button>
+        </div>
+        <button id="geoBtn" class="geo-btn">📍 Use My Location</button>
+        <div class="favorites">
+          <span>⭐ Favorites:</span>
+          <span id="favoritesList"></span>
+          <button id="addFavoriteBtn" class="fav-btn">＋</button>
+        </div>
+      </div>
+      <div class="current">
+        <div class="current-info weather-card">
+  <div class="weather-main">
+    <span id="weatherIcon" class="weather-icon">🌧️</span>
+    <div>
+      <h3 id="cityName">--</h3>
+      <h1 id="temp">--°C</h1>
+      <p id="desc">--</p>
+    </div>
+  </div>
+  <div class="weather-stats">
+  <div><span></span> <span id="feelsLike">--°</span> Feels Like</div>
+  <div><span></span> <span id="highLow">--/--°</span> High/Low</div>
+  <div><span></span> <span id="humidity">--%</span> Humidity</div>
+  <div><span>⏲</span> <span id="pressure">-- hPa</span> Pressure</div>
+  <div><span></span> <span id="visibility">-- km</span> Visibility</div>
+  <div><span></span> <span id="wind">-- km/h</span> Wind</div>
+  
+  <div><span></span> <span id="sunrise">--:--</span> <span> | </span> <span id="sunset">--:--</span></div>
+</div>
+</div>
+        <div id="map"></div>
+      </div>
+
+      <div class="forecast">
+  <div class="forecast-toggle">
+    <button id="toggle-24h" class="toggle-btn active">24H</button>
+    <button id="toggle-3d" class="toggle-btn">3D</button>
+    <button id="toggle-7d" class="toggle-btn">7D</button>
+  </div>
+  <div class="forecast-views">
+    <div id="forecast-24h" class="forecast-view active">
+      <!-- 24H forecast cards will be rendered here -->
+      <div class="forecast-cards" id="forecast24hCards"></div>
+    </div>
+    <div id="forecast-3d" class="forecast-view">
+      <!-- 3D forecast cards will be rendered here -->
+      <div class="forecast-cards" id="forecast3dCards"></div>
+    </div>
+    <div id="forecast-7d" class="forecast-view">
+      <!-- 7D forecast table/cards will be rendered here -->
+      <div class="forecast-cards" id="forecast7dCards"></div>
+    </div>
+  </div>
+</div>
+    </div>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+  </body>
+</html>
