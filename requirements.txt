@@ -1,2 +1,12 @@
-Flask
-requests
+# Core Dependencies
+Flask==2.3.3
+requests==2.31.0
+
+# Web Server (Production)
+gunicorn==21.2.0
+
+# Environment Variables (Optional)
+python-dotenv==1.0.0
+
+# Additional Utilities
+Werkzeug==2.3.7
