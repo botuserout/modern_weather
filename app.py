@@ -3,7 +3,7 @@ import requests
 
 app = Flask(__name__)
 
-API_KEY = "Enter your api key here"
+API_KEY = "ebbac1e48d07138fa2c63c95ee13ee51"
 
 @app.route("/")
 def home():
@@ -14,7 +14,7 @@ def get_weather():
     city = request.form["city"]
     base_url = "https://api.openweathermap.org/data/2.5/weather"
     forecast_url = "https://api.openweathermap.org/data/2.5/forecast"
-    weatherapi_key = "Enter your api key here"
+    weatherapi_key = "5a32303810fc440dacb164122252509"
     weatherapi_base = "https://api.weatherapi.com/v1/current.json"
     weatherapi_forecast = "https://api.weatherapi.com/v1/forecast.json"
 
